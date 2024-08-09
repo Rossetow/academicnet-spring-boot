@@ -13,7 +13,7 @@ services:
     cap_add:
       - SYS_NICE
   app:
-    image: andrefelix/academicnet:V1
+    image: rossetow/academicnet:v1
     container_name: academicnet_app
     depends_on:
       - mysql-db

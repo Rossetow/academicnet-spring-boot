@@ -1,7 +1,7 @@
 package br.com.rrosseto.academicnet;
 
-import br.com.rrosseto.academicnet.model.Aluno;
-import br.com.rrosseto.academicnet.repository.AlunoRepository;
+import br.com.rrosseto.academicnet.model.Student;
+import br.com.rrosseto.academicnet.repository.StudentRepository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -26,82 +26,82 @@ class AcademicnetApplicationTests {
     private int port;
 
     @Autowired
-    private AlunoRepository AlunoRepository;
+    private StudentRepository StudentRepository;
 
     @Autowired
     private TestRestTemplate restTemplate;
 
     private final ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
-    final Instant dataCadastro = Instant.parse("2021-01-04T10:20:19.0Z");
-    final Aluno aluno = new Aluno(123L, "Jose da Silva", "33444-0093", "contato@rrosseto.com.br", dataCadastro);
-    final Aluno alunoParaAlterar = new Aluno(123L, "Jose da Silva Santos", "33444-99999", "santos@rrosseto.com.br", dataCadastro);
+    final Instant registerDate = Instant.parse("2021-01-04T10:20:19.0Z");
+    final Student Student = new Student(123L, "Jose da Silva", "33444-0093", "contato@rrosseto.com.br", registerDate);
+    final Student StudentToAlter = new Student(123L, "Jose da Silva Santos", "33444-99999", "santos@rrosseto.com.br", registerDate);
 
     @Test
-    void crudAluno() throws Exception {
-        AlunoRepository.deleteAll();
-        incluirAluno(aluno);
-        alterarAluno(alunoParaAlterar);
+    void crudStudent() throws Exception {
+        StudentRepository.deleteAll();
+        includeStudent(Student);
+        alterStudent(StudentToAlter);
 
-        var alunoConsultado = consultarAluno(alunoParaAlterar.getMatricula());
+        var consultedStudent = consultStudent(StudentToAlter.getRegistration());
 
-        assertEquals(alunoParaAlterar, alunoConsultado);
-        deletarAluno(alunoConsultado.getMatricula());
+        assertEquals(StudentToAlter, consultedStudent);
+        deleteStudent(consultedStudent.getRegistration());
 
-        var listAlunos = listrAlunos();
-        assertEquals(0, listAlunos.size());
+        var listStudents = listStudents();
+        assertEquals(0, listStudents.size());
     }
 
 
     @ParameterizedTest
     @NullAndEmptySource
-    void dadosInvalidos(String conteudo) throws Exception {
-        AlunoRepository.deleteAll();
+    void invalidData(String conteudo) throws Exception {
+        StudentRepository.deleteAll();
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> httpRequest = new HttpEntity<>(objectMapper.writeValueAsString(conteudo), httpHeaders);
-        var responseCode = restTemplate.postForEntity(getURLDoServico(), httpRequest, Aluno.class).getStatusCode();
+        var responseCode = restTemplate.postForEntity(gerServiceURL(), httpRequest, Student.class).getStatusCode();
         assertEquals( HttpStatus.BAD_REQUEST , responseCode);
     }
 
 
-    private Aluno consultarAluno(long matricula) {
-        return restTemplate.getForObject(getURLDoServico() + matricula, Aluno.class);
+    private Student consultStudent(long registration) {
+        return restTemplate.getForObject(gerServiceURL() + registration, Student.class);
     }
 
 
-    private void deletarAluno(Long matricula) {
-        var responseCode = restTemplate.exchange(getURLDoServico() + matricula,
+    private void deleteStudent(Long registration) {
+        var responseCode = restTemplate.exchange(gerServiceURL() + registration,
                 HttpMethod.DELETE,
                 new HttpEntity<>(new HttpHeaders()),
                 String.class).getStatusCode();
         assertEquals(HttpStatus.OK, responseCode);
     }
 
-    private void alterarAluno(Aluno alunoParaAlterar) {
+    private void alterStudent(Student StudentToAlter) {
 
-        var responseCode = restTemplate.exchange(getURLDoServico(), HttpMethod.PUT,
-                new HttpEntity<>(alunoParaAlterar),
+        var responseCode = restTemplate.exchange(gerServiceURL(), HttpMethod.PUT,
+                new HttpEntity<>(StudentToAlter),
                 String.class).getStatusCode();
         assertEquals(HttpStatus.OK, responseCode);
     }
 
-    private void incluirAluno(final Aluno aluno) throws Exception {
+    private void includeStudent(final Student Student) throws Exception {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<String> httpRequest = new HttpEntity<>(objectMapper.writeValueAsString(aluno), httpHeaders);
-        var responseCode = restTemplate.postForEntity(getURLDoServico(), httpRequest, Aluno.class).getStatusCode();
+        HttpEntity<String> httpRequest = new HttpEntity<>(objectMapper.writeValueAsString(Student), httpHeaders);
+        var responseCode = restTemplate.postForEntity(gerServiceURL(), httpRequest, Student.class).getStatusCode();
         assertEquals(HttpStatus.OK, responseCode);
     }
 
-    private List<Aluno> listrAlunos() {
-        return restTemplate.exchange(getURLDoServico(),
+    private List<Student> listStudents() {
+        return restTemplate.exchange(gerServiceURL(),
                 HttpMethod.GET,
                 new HttpEntity<>(new HttpHeaders()),
                 List.class).getBody();
     }
 
-    private String getURLDoServico() {
-        return "http://localhost:" + port + "/alunos/";
+    private String gerServiceURL() {
+        return "http://localhost:" + port + "/Students/";
     }
 }

@@ -1,0 +1,320 @@
+{
+	"info": {
+		"_postman_id": "f7bb7d8f-f44e-471d-89a3-bb697ac5291d",
+		"name": "Students API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31136456"
+	},
+	"item": [
+		{
+			"name": "Post student",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"registration\":1,\n    \"name\":\"Rafael Rosseto\",\n    \"cellphone\":\"123456789\",\n    \"email\":\"rafael@gmail.com\",\n    \"registerDate\":\"2024-08-06T20:10:58.615278783Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List students",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consult student 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verificar os dados recebidos\", () => {",
+							"    pm.expect(pm.response.code).to.equal(200);",
+							"    const studentJSON = pm.response.json();",
+							"",
+							"",
+							"    pm.expect(studentJSON.registration).to.equal(1);",
+							"    pm.expect(studentJSON.name).to.equal(\"Rafael Rosseto\");",
+							"    pm.expect(studentJSON.cellphone).to.equal(\"123456789\");",
+							"    pm.expect(studentJSON.email).to.equal(\"rafael@gmail.com\");",
+							"",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/students/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"students",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post student 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"registration\":2,\n    \"name\":\"Jose da Silva\",\n    \"cellphone\":\"3456789012\",\n    \"email\":\"jose@gmail.com\",\n    \"registerDate\":\"2024-08-06T20:11:56.0Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List students",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consult student 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verificar os dados recebidos\", () => {",
+							"    pm.expect(pm.response.code).to.equal(200);",
+							"    const studentJSON = pm.response.json();",
+							"",
+							"",
+							"    pm.expect(studentJSON.registration).to.equal(2);",
+							"    pm.expect(studentJSON.name).to.equal(\"Jose da Silva\");",
+							"    pm.expect(studentJSON.cellphone).to.equal(\"3456789012\");",
+							"    pm.expect(studentJSON.email).to.equal(\"jose@gmail.com\");",
+							"",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/students/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"students",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit student 2",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"registration\":2,\n    \"name\":\"Jose da Silva\",\n    \"cellphone\":\"3456789012\",\n    \"email\":\"josedasilva@gmail.com\",\n    \"registerDate\":\"2024-08-06T20:11:56.0Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consult student 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verificar os dados recebidos\", () => {",
+							"    pm.expect(pm.response.code).to.equal(200);",
+							"    const studentJSON = pm.response.json();",
+							"",
+							"",
+							"    pm.expect(studentJSON.registration).to.equal(2);",
+							"    pm.expect(studentJSON.name).to.equal(\"Jose da Silva\");",
+							"    pm.expect(studentJSON.cellphone).to.equal(\"3456789012\");",
+							"    pm.expect(studentJSON.email).to.equal(\"josedasilva@gmail.com\");",
+							"",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/students/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"students",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete student 2",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/students/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"students",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List students",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"students"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

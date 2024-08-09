@@ -12,13 +12,13 @@ import java.time.Instant;
 @AllArgsConstructor
 @Data
 @Entity
-public class Aluno{
+public class Student{
 
     @Id
-    private Long matricula;
-    private String nome;
-    private String telefone;
+    private Long registration;
+    private String name;
+    private String cellphone;
     private String email;
-    private Instant dataCadastro;
+    private Instant registerDate;
 
 }
