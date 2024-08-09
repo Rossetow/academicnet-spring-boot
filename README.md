@@ -23,14 +23,7 @@ It covers topics such as: OOP, Docker, REST APIs, CRUD and more. I hope you enjo
 ### Initializing the data base
 
 ``` cd docker ```
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> 413c8a5 (Update README.md)
-=======
-
->>>>>>> 960ba48 (Update README.md)
 ``` docker compose up ```
 
 ### Initializing the app
